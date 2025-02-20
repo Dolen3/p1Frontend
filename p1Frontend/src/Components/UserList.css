@@ -1,0 +1,8 @@
+#UserListTable {
+    border: 2px solid black;
+}
+
+#UserListTable th,
+#UserListTable td {
+    border: 2px solid black;
+}
