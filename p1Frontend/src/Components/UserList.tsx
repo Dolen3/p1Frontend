@@ -58,8 +58,9 @@ export const UserList:React.FC = () => {
         }
     };
     
+    //TODO: Implement this function
     const viewUser = (userId: number) => {
-        navigate(`/users/${userId}/reimbursements`);
+        navigate(`/reimbursements/${userId}`);
     }; 
 
     if (role !== "MANAGER") {

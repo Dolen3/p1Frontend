@@ -1,0 +1,9 @@
+#ReimbursementListTable {
+    margin: 10px;
+    border: 2px solid black;
+}
+
+#ReimbursementListTable th,
+#ReimbursementListTable td {
+    border: 2px solid black;
+}

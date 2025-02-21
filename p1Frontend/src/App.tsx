@@ -7,7 +7,9 @@ import { Login } from './Components/LoginRegister/Login'
 import 'bootstrap/dist/css/bootstrap.css'
 import { Register } from './Components/LoginRegister/Register'
 import { Dashboard } from './Components/Dashboard'
-//^THIS IS A REQUIRED MANUAL IMPORT FOR BOOTSTRAP TO WORK!!!
+import { CreateReimbursement } from './Components/CreateReimbursement'
+import { ReimbursementList } from './Components/ReimbursementList'
+import { ReimbursementListByUserId } from './Components/ReimbursementListByUserId'
 
 function App() {
 
@@ -20,6 +22,8 @@ function App() {
           <Route path="" element={<Login/>}/>
           <Route path="register" element={<Register/>}/>
           <Route path="dashboard" element={<Dashboard/>}/>
+          <Route path="createReimbursement" element={<CreateReimbursement/>}/>
+          <Route path="reimbursements/:userId" element={<ReimbursementListByUserId />} />
         </Routes>
       </BrowserRouter>
 

@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UserList } from "./UserList";
+import { ReimbursementList } from "./ReimbursementList";
 
 export const Dashboard:React.FC = () => {
     
@@ -30,7 +31,7 @@ if (!role) {
     return(
         <Container>
 
-            {/* {role === "user" && <UserReimbursementsList/>} */}
+             {role === "EMPLOYEE" && <ReimbursementList/>} 
             {role === "MANAGER" && <UserList/>} 
 
 
