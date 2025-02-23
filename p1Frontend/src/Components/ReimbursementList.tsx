@@ -2,7 +2,7 @@ import axios from "axios";
 import "./ReimbursementList.css";
 import { useEffect, useState } from "react";
 import { Container, Table, Button, Dropdown } from "react-bootstrap";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 interface Reimbursement {
     reimbursementId: number;
@@ -15,6 +15,7 @@ export const ReimbursementList: React.FC = () => {
     const [userId, setUserId] = useState<number | null>(null);
     const [role, setRole] = useState<string>("");
     const [reimbursements, setReimbursements] = useState<Reimbursement[]>([]);
+    const [showPending, setShowPending] = useState<boolean>(false);
 
     useEffect(() => {
         const user = localStorage.getItem("user");
@@ -41,7 +42,7 @@ export const ReimbursementList: React.FC = () => {
                     console.error("There was an error fetching the reimbursements!", error);
                 });
         }
-    }, [role]);
+    }, [role, userId]);
 
     const updateDescription = async (id: number, newDescription: string) => {
         if (!id || isNaN(id)) {
@@ -69,7 +70,6 @@ export const ReimbursementList: React.FC = () => {
         }
     };
 
-    
     const updateStatus = async (id: number, status: string) => {
         try {
             await axios.put(
@@ -85,11 +85,26 @@ export const ReimbursementList: React.FC = () => {
         }
     };
 
+    // Filter reimbursements if showPending is true
+    const filteredReimbursements = showPending
+        ? reimbursements.filter(r => r.status === "PENDING")
+        : reimbursements;
+
     return (
         <Container>
             <h1>Reimbursements</h1>
-            <Button onClick={() => navigate("/createReimbursement")}>Create New Reimbursement</Button>
-            <Table id = "ReimbursementListTable" striped bordered hover>
+            <div style={{ marginBottom: "10px" }}>
+                <Button style={{ margin: '5px' }} onClick={() => navigate("/createReimbursement")}>
+                    Create New Reimbursement
+                </Button>
+                <Button
+                    style={{ margin: '5px' }}
+                    onClick={() => setShowPending(prev => !prev)}
+                >
+                    {showPending ? "Show All" : "Show Pending Only"}
+                </Button>
+            </div>
+            <Table id="ReimbursementListTable" striped bordered hover>
                 <thead>
                     <tr>
                         <th>Description</th>
@@ -98,7 +113,7 @@ export const ReimbursementList: React.FC = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {reimbursements
+                    {filteredReimbursements
                         .sort((a, b) => (a.status === "PENDING" ? -1 : 1))
                         .map((r) => (
                             <tr key={r.reimbursementId}>
