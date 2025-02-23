@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Container } from "react-bootstrap";
+import { Button, Container } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { UserList } from "./UserList";
 import { ReimbursementList } from "./ReimbursementList";
@@ -18,7 +18,7 @@ useEffect(() => {
         const userData = JSON.parse(user);
         setRole(userData.role);
     } else{
-        navigate("/login");
+        navigate("/");
     }
 
 }, [navigate]);
@@ -30,10 +30,11 @@ if (!role) {
 
     return(
         <Container>
-
+            <div>
              {role === "EMPLOYEE" && <ReimbursementList/>} 
             {role === "MANAGER" && <UserList/>} 
-
+            </div>
+            <Button onClick={() => navigate("/")}>Back to login</Button>
 
 
         </Container>

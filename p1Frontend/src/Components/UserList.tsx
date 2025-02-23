@@ -86,8 +86,8 @@ export const UserList:React.FC = () => {
                             <td>{user.role}</td>
                             <td>{user.userId}</td>
                             <td>
-                                <Button variant="primary" onClick={() => viewUser(user.userId)}>View</Button>
-                                <Button variant="danger" onClick={() => deleteUser(user.userId)}>Delete</Button>
+                                <Button style={{ margin: '5px' }} variant="primary" onClick={() => viewUser(user.userId)}>View</Button>
+                                <Button style={{ margin: '5px' }} variant="danger" onClick={() => deleteUser(user.userId)}>Delete</Button>
                             </td>
                         </tr>
                     ))}

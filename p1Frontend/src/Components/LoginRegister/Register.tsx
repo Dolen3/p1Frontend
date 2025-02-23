@@ -68,7 +68,8 @@ export const Register:React.FC = () => {
               </div>
 
               <div>
-                <Button onClick={register}>Create Account</Button>
+                <Button style={{ margin: '5px' }} onClick={register}>Create Account</Button> 
+                <Button style={{ margin: '5px' }} onClick={() => navigate("/")}>Back to login</Button>
               </div>
           </div>
       </Container>
