@@ -21,11 +21,11 @@ export const Register:React.FC = () => {
 
 
         try {
-            const response = await axios.post("http://localhost:8080/users/register", {
-        username,
-        password,
-      });
-
+            const response = await await axios.post(
+                "http://localhost:8080/users/register",
+                { username, password },
+                { withCredentials: true }
+              );
 
       console.log("Registration successful:", response.data);
       alert("Account created successfully!");

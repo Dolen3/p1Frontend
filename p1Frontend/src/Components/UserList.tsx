@@ -45,6 +45,9 @@ export const UserList:React.FC = () => {
         }
     }, [role]);
 
+
+
+
     const deleteUser = async (userId: number) => {
         console.log(`Attempting to delete user with ID: ${userId}`);
         try {
@@ -62,6 +65,20 @@ export const UserList:React.FC = () => {
     const viewUser = (userId: number) => {
         navigate(`/reimbursements/${userId}`);
     }; 
+
+    const promoteUser = async (userId: number) => {
+        try {
+            await axios.put(`http://localhost:8080/users/${userId}/role`, "MANAGER", {
+                withCredentials: true,
+                headers: {
+                    "Content-Type": "text/plain",
+                },
+            });
+            setUsers(users.map(u => u.userId === userId ? { ...u, role: "MANAGER" } : u));
+        } catch (error) {
+            console.error("There was an error promoting the user!", error);
+        }
+    };
 
     if (role !== "MANAGER") {
         return <div>Access denied. Only managers can view this page.</div>;
@@ -87,6 +104,7 @@ export const UserList:React.FC = () => {
                             <td>{user.userId}</td>
                             <td>
                                 <Button style={{ margin: '5px' }} variant="primary" onClick={() => viewUser(user.userId)}>View</Button>
+                                <Button style={{ margin: '5px' }} variant="success" onClick={() => promoteUser(user.userId)}>Promote</Button>
                                 <Button style={{ margin: '5px' }} variant="danger" onClick={() => deleteUser(user.userId)}>Delete</Button>
                             </td>
                         </tr>
